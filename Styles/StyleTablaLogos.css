@@ -1,0 +1,49 @@
+.contractor-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 0.05px solid black; /* Borde superior más visible */
+    border-bottom: 0.05px solid black; /* Borde inferior más visible */
+}
+
+.contractor-table td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.contractor-title {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: left;
+    padding-right: 20px; /* Espaciado entre texto y logo */
+}
+
+.contractor-content {
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Contenedor del logo Progen */
+.contractor-logo {
+    display: flex;
+    justify-content: center; /* Centrar el logo en su celda */
+    align-items: center;
+}
+
+.contractor-logo img {
+    max-width: 150px; /* Ajusta según necesidad */
+    height: auto;
+}
+
+/* Contenedor del logo de Movilidad */
+.right-logo {
+    display: flex;
+    justify-content: center; /* Centrar logo en su celda */
+    align-items: center;
+}
+
+.right-logo img {
+      justify-content: center;
+    max-width: 180px; /* Aumenta el tamaño del logo */
+    height: auto;
+}
+

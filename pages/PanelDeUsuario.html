@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Usuario</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../Styles/stylePaneldeUsuario.css">
+  <script src="../Scripts/iFramePanelDeUsuario.js"></script>
+</head>
+<body>
+  <div class="menu-toggle" onclick="toggleMenu()">☰ Menú</div>
+
+  <div class="menu">
+    <a href="#" onclick="showPerformance()">Ver Rendimiento</a>
+    <a href="#" onclick="loadForm()">Generar Formulario</a>
+    <a href="#" onclick="showGeneratedForms()">Ver Formularios Generados</a>
+    <a href="../index.html" >Salir</a>
+  </div>
+
+  <div class="content" id="contentArea">
+    <p>Bienvenido, selecciona una opción del menú.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,194 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+}
+
+* {
+    box-sizing: border-box; /* Asegura que todos los elementos respeten el box-sizing */
+}
+
+/* Contenedor principal */
+.container {
+    width: 90%;
+    max-width: 900px; /* Limita el ancho máximo para evitar que se vea demasiado ancho */
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+.header {
+    text-align: center;
+    border-bottom: 2px solid #007bff;
+    padding: 10px 0;
+    margin-bottom: 20px; /* Añade espacio debajo del encabezado */
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* Tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.9em;
+    table-layout: fixed; /* Distribuye columnas de manera uniforme */
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    word-wrap: break-word; /* Permite que el texto se ajuste al ancho */
+}
+
+table th {
+    background-color: #f4f4f4; /* Fondo para las celdas de encabezado */
+}
+
+/* Espacio para imágenes */
+.image-space {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.image-space p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Espacio de previsualización */
+.preview-space {
+    width: 100%;
+    min-height: 200px; /* Altura mínima para evitar que se colapse */
+    border: 1px dashed #007bff;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #f4f4f4;
+    margin-top: 10px;
+}
+
+.preview-space img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+/* Input de archivo */
+input[type="file"] {
+    margin-top: 10px;
+    font-size: 0.9em;
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+}
+
+
+/* Estilos para la previsualización de imágenes */
+.preview-space {
+    width: 100%;
+    min-height: 150px;
+    border: 1px dashed #007bff;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #f4f4f4;
+    margin-top: 10px;
+}
+
+.preview-space img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Secciones */
+.section {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    width: 100%;
+}
+
+.section h3, .section p, .section input {
+    width: 100%; /* Asegura que los elementos ocupen todo el ancho */
+}
+
+/*Firmas*/
+
+.signatures-wrapper {
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos: izquierda - derecha */
+    align-items: center;
+    width: 100%;
+}
+
+.signature-owner {
+    text-align: left; /* Alinea la firma del propietario a la izquierda */
+    width: 30%;
+}
+
+.signatures-container {
+    display: flex;
+    justify-content: flex-end; /* Alinea las firmas a la derecha */
+    align-items: center;
+    gap: 20px; /* Espacio entre firmas */
+    width: 70%;
+}
+
+.signature-block {
+    text-align: center;
+}
+
+
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.2em;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+
+    table th, table td {
+        font-size: 0.8em;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .preview-space {
+        min-height: 150px; /* Ajusta la altura para dispositivos pequeños */
+    }
+
+    .header h1 {
+        font-size: 1em;
+    }
+
+    .modal-content {
+        width: 100%;
+        padding: 15px;
+    }
+}

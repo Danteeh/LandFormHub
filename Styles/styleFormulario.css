@@ -3,183 +3,106 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     background-color: #f4f4f4;
-}
-
-* {
-    box-sizing: border-box;
+    overflow-x: auto; /* Permite desplazamiento horizontal */
 }
 
 /* Contenedor principal */
 .container {
-    width: 95%;
-    max-width: 1200px; /* Aumenté el ancho máximo */
+    width: 100%; /* Usa todo el ancho disponible */
+    max-width: 1400px; /* Aumenté el ancho máximo */
+    min-width: 1024px; /* Evita que se vuelva demasiado estrecho */
     margin: 20px auto;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Encabezado */
-.header {
-    text-align: center;
-    border-bottom: 2px solid #007bff;
-    padding: 10px 0;
-    margin-bottom: 20px;
-}
-
-.header h1 {
-    margin: 0;
-    font-size: 1.8em; /* Aumenté el tamaño */
-    color: #333;
+    overflow-x: auto; /* Permite desplazamiento */
 }
 
 /* Tablas */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Permite scroll horizontal */
+}
+
 table {
+    min-width: 1024px; /* Asegura que la tabla no se reduzca demasiado */
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
-    font-size: 1em; /* Aumenté el tamaño del texto */
+    font-size: 1em;
 }
 
 table th, table td {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 12px;
     text-align: center;
-    word-wrap: break-word; /* Permite que el texto se ajuste al ancho */
+    word-wrap: break-word;
 }
 
 table th {
     background-color: #f4f4f4;
 }
 
-/* En pantallas pequeñas, permite hacer scroll horizontal */
-.table-wrapper {
-    overflow-x: auto;
-    width: 100%;
-}
-
-/* Espacio para imágenes */
-.image-space {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.image-space p {
-    margin: 0;
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 5px;
-}
-
-/* Espacio de previsualización */
-.preview-space {
-    width: 100%;
-    min-height: 250px; /* Aumenté la altura */
-    border: 1px dashed #007bff;
-    border-radius: 8px;
+/* Firmas */
+.signatures-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    overflow: hidden;
-    background-color: #f4f4f4;
-    margin-top: 10px;
-}
-
-.preview-space img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 /* Secciones */
 .section {
-    display: flex;
-    flex-direction: column;
+    min-width: 1024px; /* Asegura que no se reduzca demasiado */
     margin: 15px 0;
-    padding: 20px; /* Aumenté el padding */
+    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     background: #fff;
-    width: 100%;
-}
-
-.section h3, .section p, .section input {
-    width: 100%;
-}
-
-/* Firmas */
-
-.signature-owner {
-    background-color: #fff;
-    text-align: left;
-    width: 30%;
-}
-
-.signatures-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 20px;
-    width: 70%;
-}
-
-.signature-block {
-    text-align: center;
 }
 
 /* Responsividad */
 @media (max-width: 1024px) {
     .container {
-        max-width: 100%; /* Usa todo el ancho disponible */
-        padding: 15px;
+        width: 100%;
+        min-width: 1000px; /* Evita que sea demasiado estrecho */
     }
 
-    .header h1 {
-        font-size: 1.6em;
-    }
-    
     .table-wrapper {
-        overflow-x: auto; /* Permite desplazarse horizontalmente */
+        overflow-x: auto;
     }
-    
-    table {
-        font-size: 0.95em; /* Reduce un poco el tamaño en pantallas medianas */
+
+    .section {
+        min-width: 1000px;
     }
 }
 
 @media (max-width: 768px) {
-    .header h1 {
-        font-size: 1.4em;
+    .container {
+        min-width: 900px;
     }
 
-    table th, table td {
-        font-size: 0.9em;
-        padding: 8px;
+    .table-wrapper {
+        overflow-x: auto;
     }
 
     .section {
-        padding: 15px;
+        min-width: 900px;
     }
 }
 
 @media (max-width: 480px) {
-    .preview-space {
-        min-height: 180px;
-    }
-
-    .header h1 {
-        font-size: 1.2em;
-    }
-
-    table th, table td {
-        font-size: 0.85em;
-        padding: 6px;
-    }
-
     .container {
-        padding: 10px;
+        min-width: 800px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .section {
+        min-width: 800px;
     }
 }

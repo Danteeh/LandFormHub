@@ -18,6 +18,16 @@ document.addEventListener('DOMContentLoaded', function () {
         // Ocultar botón antes de generar el PDF
         if (generateButton) generateButton.style.display = 'none';
 
+        // Convertir los <textarea> en texto antes de la captura
+        document.querySelectorAll("textarea").forEach(textarea => {
+            let text = textarea.value;
+            let span = document.createElement("span");
+            span.textContent = text;
+            span.style.whiteSpace = "pre-wrap"; // Mantiene saltos de línea y espacios
+            span.style.display = "block"; // Para mantener la estructura del diseño
+            textarea.parentNode.replaceChild(span, textarea); // Reemplaza el textarea
+        });
+
         html2canvas(element, { scale: 2, useCORS: true }).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
             const { jsPDF } = window.jspdf;
@@ -38,6 +48,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Restaurar la visibilidad del botón
             if (generateButton) generateButton.style.display = 'block';
+
+            // Restaurar los textarea después de generar el PDF
+            document.querySelectorAll("span").forEach(span => {
+                let textarea = document.createElement("textarea");
+                textarea.value = span.textContent;
+                textarea.style.width = "100%"; // Mantiene el tamaño original
+                textarea.style.resize = "vertical"; // Permite redimensionar
+                span.parentNode.replaceChild(textarea, span);
+            });
+
         }).catch(error => {
             console.error("Error al generar el PDF con html2canvas:", error);
             if (generateButton) generateButton.style.display = 'block';

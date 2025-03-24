@@ -3,7 +3,7 @@ let canvas, ctx, isDrawing = false;
 document.addEventListener("DOMContentLoaded", () => {
     canvas = document.getElementById("signature-pad");
     ctx = canvas.getContext("2d");
-    
+
     // Configuración de la firma
     ctx.lineWidth = 2;
     ctx.strokeStyle = "black";
@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.addEventListener("mouseout", stopDrawing);
 
     // Eventos táctiles
-    canvas.addEventListener("touchstart", startDrawing);
-    canvas.addEventListener("touchmove", draw);
+    canvas.addEventListener("touchstart", startDrawing, { passive: false });
+    canvas.addEventListener("touchmove", draw, { passive: false });
     canvas.addEventListener("touchend", stopDrawing);
 });
 
@@ -27,6 +27,7 @@ function openSignatureModal() {
 }
 
 function startDrawing(event) {
+    event.preventDefault(); // Evita el desplazamiento en móviles
     isDrawing = true;
     const { x, y } = getEventCoords(event);
     ctx.beginPath();
@@ -35,6 +36,7 @@ function startDrawing(event) {
 
 function draw(event) {
     if (!isDrawing) return;
+    event.preventDefault(); // Evita el desplazamiento en móviles
     const { x, y } = getEventCoords(event);
     ctx.lineTo(x, y);
     ctx.stroke();
@@ -63,10 +65,14 @@ function closeSignatureModal() {
 // Función para obtener coordenadas, compatible con touch y mouse
 function getEventCoords(event) {
     if (event.touches) {
-        event = event.touches[0];
+        let rect = canvas.getBoundingClientRect();
+        return {
+            x: event.touches[0].clientX - rect.left,
+            y: event.touches[0].clientY - rect.top
+        };
     }
     return {
-        x: event.offsetX || event.clientX - canvas.getBoundingClientRect().left,
-        y: event.offsetY || event.clientY - canvas.getBoundingClientRect().top
+        x: event.offsetX,
+        y: event.offsetY
     };
 }

@@ -8,13 +8,13 @@ body {
 }
 
 * {
-    box-sizing: border-box; /* Asegura que todos los elementos respeten el box-sizing */
+    box-sizing: border-box;
 }
 
 /* Contenedor principal */
 .container {
-    width: 90%;
-    max-width: 900px; /* Limita el ancho máximo para evitar que se vea demasiado ancho */
+    width: 95%;
+    max-width: 1200px; /* Aumenté el ancho máximo */
     margin: 20px auto;
     background: #fff;
     padding: 20px;
@@ -27,12 +27,12 @@ body {
     text-align: center;
     border-bottom: 2px solid #007bff;
     padding: 10px 0;
-    margin-bottom: 20px; /* Añade espacio debajo del encabezado */
+    margin-bottom: 20px;
 }
 
 .header h1 {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 1.8em; /* Aumenté el tamaño */
     color: #333;
 }
 
@@ -41,19 +41,24 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
-    font-size: 0.9em;
-    table-layout: fixed; /* Distribuye columnas de manera uniforme */
+    font-size: 1em; /* Aumenté el tamaño del texto */
 }
 
 table th, table td {
     border: 1px solid #ccc;
-    padding: 8px;
+    padding: 10px;
     text-align: center;
     word-wrap: break-word; /* Permite que el texto se ajuste al ancho */
 }
 
 table th {
-    background-color: #f4f4f4; /* Fondo para las celdas de encabezado */
+    background-color: #f4f4f4;
+}
+
+/* En pantallas pequeñas, permite hacer scroll horizontal */
+.table-wrapper {
+    overflow-x: auto;
+    width: 100%;
 }
 
 /* Espacio para imágenes */
@@ -64,7 +69,7 @@ table th {
 
 .image-space p {
     margin: 0;
-    font-size: 0.9em;
+    font-size: 1em;
     color: #555;
     margin-bottom: 5px;
 }
@@ -72,36 +77,7 @@ table th {
 /* Espacio de previsualización */
 .preview-space {
     width: 100%;
-    min-height: 200px; /* Altura mínima para evitar que se colapse */
-    border: 1px dashed #007bff;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background-color: #f4f4f4;
-    margin-top: 10px;
-}
-
-.preview-space img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: 4px;
-}
-
-/* Input de archivo */
-input[type="file"] {
-    margin-top: 10px;
-    font-size: 0.9em;
-    width: 100%; /* Asegura que ocupe todo el ancho disponible */
-}
-
-
-/* Estilos para la previsualización de imágenes */
-.preview-space {
-    width: 100%;
-    min-height: 150px;
+    min-height: 250px; /* Aumenté la altura */
     border: 1px dashed #007bff;
     border-radius: 8px;
     display: flex;
@@ -122,8 +98,8 @@ input[type="file"] {
 .section {
     display: flex;
     flex-direction: column;
-    margin: 10px 0;
-    padding: 15px;
+    margin: 15px 0;
+    padding: 20px; /* Aumenté el padding */
     border: 1px solid #ccc;
     border-radius: 8px;
     background: #fff;
@@ -131,28 +107,22 @@ input[type="file"] {
 }
 
 .section h3, .section p, .section input {
-    width: 100%; /* Asegura que los elementos ocupen todo el ancho */
-}
-
-/*Firmas*/
-
-.signatures-wrapper {
-    display: flex;
-    justify-content: space-between; /* Distribuye los elementos: izquierda - derecha */
-    align-items: center;
     width: 100%;
 }
 
+/* Firmas */
+
 .signature-owner {
-    text-align: left; /* Alinea la firma del propietario a la izquierda */
+    background-color: #fff;
+    text-align: left;
     width: 30%;
 }
 
 .signatures-container {
     display: flex;
-    justify-content: flex-end; /* Alinea las firmas a la derecha */
+    justify-content: flex-end;
     align-items: center;
-    gap: 20px; /* Espacio entre firmas */
+    gap: 20px;
     width: 70%;
 }
 
@@ -160,35 +130,56 @@ input[type="file"] {
     text-align: center;
 }
 
-
-
 /* Responsividad */
-@media (max-width: 768px) {
-    .header h1 {
-        font-size: 1.2em;
+@media (max-width: 1024px) {
+    .container {
+        max-width: 100%; /* Usa todo el ancho disponible */
+        padding: 15px;
     }
 
-    .modal-content {
-        width: 95%;
+    .header h1 {
+        font-size: 1.6em;
+    }
+    
+    .table-wrapper {
+        overflow-x: auto; /* Permite desplazarse horizontalmente */
+    }
+    
+    table {
+        font-size: 0.95em; /* Reduce un poco el tamaño en pantallas medianas */
+    }
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.4em;
     }
 
     table th, table td {
-        font-size: 0.8em;
-        padding: 5px;
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .section {
+        padding: 15px;
     }
 }
 
 @media (max-width: 480px) {
     .preview-space {
-        min-height: 150px; /* Ajusta la altura para dispositivos pequeños */
+        min-height: 180px;
     }
 
     .header h1 {
-        font-size: 1em;
+        font-size: 1.2em;
     }
 
-    .modal-content {
-        width: 100%;
-        padding: 15px;
+    table th, table td {
+        font-size: 0.85em;
+        padding: 6px;
+    }
+
+    .container {
+        padding: 10px;
     }
 }

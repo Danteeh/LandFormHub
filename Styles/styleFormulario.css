@@ -47,10 +47,15 @@ table th, table td {
 }
 
 /* Ajuste de input dentro de la tabla */
+/* Ajuste de input dentro de la tabla */
 table input {
-    width: 100%;
-    box-sizing: border-box;
+    width: 50%; /* Reduce el ancho un poco para que no sobresalga */
+    max-width: 100%; /* Asegura que no sobrepase el tamaño de la celda */
+    box-sizing: border-box; /* Mantiene padding y border dentro del tamaño definido */
+    overflow: hidden; /* Evita que el texto se desborde */
+    text-overflow: ellipsis; /* Si el texto es muy largo, mostrará "..." */
 }
+
 
 /* Secciones */
 .section {

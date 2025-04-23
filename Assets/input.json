@@ -1,0 +1,36 @@
+[
+    {
+      "PDF": "MV_19_178_1244_11_cll67b sur #63-22.pdf",
+      "Fecha": "No especificada",
+      "Localidad": "Ciudad Bolívar",
+      "Barrio": "Arborizadora",
+      "Predio": {
+        "Nombre del Propietario": "Luz Otilita",
+        "Teléfono": "31124772023",
+        "Correo electrónico": "Y",
+        "Dirección": "Calle 67B Sur #63-22"
+      },
+      "Servicios Disponibles": "Todos los servicios están disponibles y funcionando correctamente.",
+      "Uso del Predio": {
+        "Uso Residencial": "Sí",
+        "Uso Comercial": "Sí",
+        "Uso Industrial": "No",
+        "Uso Agrícola": "No",
+        "Otros Usos": "No"
+      },
+      "Acceso Vehicular": "Disponible",
+      "Garaje": "No especificado",
+      "Uso Comercial del Garaje": "No especificado",
+      "Descripción del Predio": "Se realizó un acta de vecindad en el predio ubicado en la dirección Calle 67B Sur #63-22.",
+      "Estado del Predio": {
+        "Piso 4": { "Material": "Metal", "Estado del vidrio": "Bueno" },
+        "Piso 3": { "Material": "Metal", "Estado del vidrio": "Bueno" },
+        "Piso": { "Material": "Metal", "Estado del vidrio": "Bueno" },
+        "Cerramiento": "No presenta cerramiento",
+        "Daños": "No se encuentra presencia de daños"
+      },
+      "Evaluación General": "El estado del predio es bueno. Las ventanas están en buen estado y no se observan daños ni cerramientos defectuosos.",
+      "Consolidado de Descripción": "La propiedad se encuentra en buen estado, con todos los servicios disponibles y ventanas en buen estado. No presenta daños ni cerramientos defectuosos. Se considera que el estado del predio es adecuado y no presenta problemas significativos."
+    }
+  ]
+  

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formato Acta de Vecindad</title>
+    <!--Estilos -->
+    <link rel="stylesheet" href="../Styles/styleFormulario.css">
+    <link rel="stylesheet" href="../Styles/StyleCanva.css">
+    <link rel="stylesheet" href="../Styles/StyleTablaLogos.css">
+    <!--Scripts JavaScript-->
+    <script src="../Scripts/FotosFormulario.js"></script>
+    <script src="../Scripts/PDFgenerarFormulario.js"></script>
+    <script src="../Scripts/CanvaFirmaFormulario.js"></script>
+    <!--Tambien Scripts JavaScript pero que son recursos para que funcione-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>FORMATO ACTA DE VECINDAD</h1>
+            <p>CONTRATO NÚMERO 2024-3652</p>
+            <p>CONSORCIO SEÑALIZAR BOGOTÁ 2025</p>
+            <p>Calle 17 No. 33-76- Bogotá D.C.</p>
+            <button id="generatePDF">Generar PDF</button>
+            <input type="file" id="inputCargaArchivo" accept="application/json">
+        </div>
+        <div class="section">
+            <table class="contractor-table">
+                <tr>
+                    <td rowspan="2" class="contractor-title">
+                        <p>CONTRATISTA</p>
+                        <p>CONSORCIO SEÑALIZAR BOGOTÁ 2025 ZONA 6</p>
+                        <p>CONTRATO NUMERO 2024-3667</p>
+                    </td>
+                    <td rowspan="2" class="contractor-logo">
+                        <img src="../Assets/Logo_Progen-removebg-preview.png" alt="Logo Progen">
+                    </td>
+                    <td class="contractor-content">
+                        <p>CONSORCIO INTEROBRAS</p>
+                        <p>POSOO-ALDEIC</p>
+                    </td>
+                    <td rowspan="2" class="right-logo">
+                        <img src="../Assets/LogoSMovilidad-removebg-preview.png" alt="Logo Movilidad">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="section">
+            <table>
+                <tr>
+                    <th>FECHA</th>
+                    <th>LOCALIDAD</th>
+                    <th>BARRIO</th>
+                    <th>ID DISEÑO</th>
+                </tr>
+                <tr>
+                    <td><input type="date" id="fecha"></td>
+                    <td><input type="text" id="localidad" placeholder="Localidad"></td>
+                    <td><input type="text" id="barrio" placeholder="Barrio"></td>
+                    <td><input type="text" id="id_diseno" placeholder="ID Diseño"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h3>2. DATOS DEL PREDIO</h3>
+            <table>
+                <tr>
+                    <td>Nombre Propietario:<input type="text" placeholder="nombre" id="Nombre"
+                            oninput="updateOwnerName()"></td>
+                    <td>Servicios</td>
+                </tr>
+                <tr>
+                    <td>Teléfono: <input type="text" placeholder="teléfono" id="Telefono"></td>
+                    <td class="table-interna" rowspan="3">
+                        <table>
+                            <tr>
+                                <th>Servicio</th>
+                                <th>SI</th>
+                                <th>NO</th>
+                                <th>Observaciones</th>
+                            </tr>
+                            <tr>
+                                <td>Agua</td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+
+                            </tr>
+                            <tr>
+                                <td>Alcantarillado</td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+
+                            </tr>
+                            <tr>
+                                <td>Teléfonos</td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+
+                            </tr>
+                            <tr>
+                                <td>Gas</td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+
+                            </tr>
+                            <tr>
+                                <td>TICS</td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+
+                            </tr>
+                            <tr>
+                                <td>Licencia de construcción</td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Correo Electrónico: <input type="email" placeholder="correo" id="Correo"></td>
+                </tr>
+                <tr>
+                    <td>Dirección: <input type="text" placeholder="dirección" id="Direccion"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h3>USO ACTUAL</h3>
+            <table>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Check</th>
+                </tr>
+                <tr>
+                    <td>Residencial</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Comercial</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Institucional</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Industrial</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Recreacional</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Bien de interés cultural</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Mixto</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Otro</td>
+                    <td><input type="text" placeholder="¿Cuál?"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h3>ACCESO VEHICULAR</h3>
+            <table>
+                <tr>
+                    <td>Garaje:</td>
+                    <td>
+                        <select>
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Uso Comercial:</td>
+                    <td>
+                        <select>
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Uso del garaje:</td>
+                    <td>
+                        <input type="text" placeholder="Especificar">
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h3>REGISTRO FOTOGRÁFICO</h3>
+            <div class="image-space">
+                <p>Espacio para imagen 1</p>
+                <input type="file" accept="image/*" onchange="previewImage(event, 'image1')">
+                <div id="image1-preview" class="preview-space"></div>
+            </div>
+            <div class="image-space">
+                <p>Espacio para imagen 2</p>
+                <input type="file" accept="image/*" onchange="previewImage(event, 'image2')">
+                <div id="image2-preview" class="preview-space"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>DESCRIPCIÓN</h3>
+            <textarea rows="5" style="width: 100%;" placeholder="Ingrese la descripción aquí..." id="descripción_Area"></textarea>
+        </div>
+        <!-- Zona de las firmas-->
+        <div class="section">
+            <p>PROPIETARIO Y/O ENCARGADO:</p>
+            <!-- Sección de firmas -->
+            <div class="signatures-wrapper">
+                <!-- Firma del propietario -->
+                <div class="signature-owner">
+                    <p>Firma del propietario:</p>
+                    <div id="signature-box" onclick="openSignatureModal()">
+                        <img id="signature-image" src="" alt="Firma" style="display: none; width: 100%; height: auto;">
+                        <span id="signature-placeholder">[Firma aquí]</span>
+                    </div>
+                    <script>
+                        function updateOwnerName() {
+                            let inputName = document.getElementById("Nombre").value; // Obtiene el valor del input
+                            document.getElementById("owner-name").textContent = inputName || "Nombre de la persona"; // Lo actualiza
+                        }
+                    </script><!-- Dejo este script aca debido a llamda recursiva -->
+                    <p id="owner-name">Nombre de la persona</p> <!-- Aquí se actualizará dinámicamente -->
+                    <p>Persona que atiende la visita</p>
+                </div>
+            </div>
+
+            <!-- Contenedor para las firmas en fila (alineadas a la derecha) -->
+            <div class="signatures-container">
+                <!-- Firma de Clara Consuelo García -->
+                <div class="signature-block">
+                    <p>Elaboró:</p>
+                    <img src="../Assets/Firmaclara.jpg" alt="Firma Clara Consuelo" style="width: 70%; height: auto;">
+                    <p><strong>Clara Consuelo García</strong></p>
+                    <p>Residente Social - Contratista</p>
+                </div>
+
+                <!-- Firma de Daniela Orejuela -->
+                <div class="signature-block">
+                    <p>Elaboró:</p>
+                    <img src="../Assets/FirmaDaniela.jpeg" alt="Firma Daniela Orejuela"
+                        style="width: 70%; height: auto;">
+                    <p><strong>Daniela Orejuela Cruz</strong></p>
+                    <p>Residente Técnico - Contratista</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- El modal para la firma de usuario -->
+    <div id="signature-modal" class="modal">
+        <div class="modal-content">
+            <canvas id="signature-pad" width="400" height="200"></canvas>
+            <button onclick="clearSignature()">Limpiar</button>
+            <button onclick="saveSignature()">Guardar</button>
+            <button onclick="closeSignatureModal()">Cerrar</button>
+        </div>
+    </div>
+    <!-- El modal para la firma de usuario -->
+    <div id="signature-modal" class="modal">
+        <div class="modal-content">
+            <canvas id="signature-pad" width="400" height="200"></canvas>
+            <button onclick="clearSignature()">Limpiar</button>
+            <button onclick="saveSignature()">Guardar</button>
+            <button onclick="closeSignatureModal()">Cerrar</button>
+        </div>
+    </div>
+
+    </div>
+
+<script src="../Scripts/CargarDatosFormulario.js"></script>
+
+</body>
+
+</html>

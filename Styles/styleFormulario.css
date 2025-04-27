@@ -90,3 +90,37 @@ table input {
         min-width: 1400px; /* Mantiene la misma estructura en móvil */
     }
 }
+
+
+/*Modal para la descripcion*/
+
+.modal-content, .bloque-formulario {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    font-family: "Segoe UI", sans-serif;
+  }
+  
+  .modal-content h4, .bloque-formulario h4 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  select, input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.95rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+  

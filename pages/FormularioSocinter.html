@@ -6,18 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formato Acta de Vecindad</title>
     <!--Estilos -->
-    <link rel="stylesheet" href="../Styles/styleFormulario.css">
+    <link rel="stylesheet" href="../Styles/StyleFormaSocinter.css">
     <link rel="stylesheet" href="../Styles/StyleCanva.css">
     <link rel="stylesheet" href="../Styles/StyleTablaLogos.css">
     <!--Scripts JavaScript-->
     <script src="../Scripts/FotosFormulario.js"></script>
     <script src="../Scripts/PDFgenerarFormulario.js"></script>
-    <script src="../Scripts/UploadPDF.js" type="module"></script>
     <script src="../Scripts/CanvaFirmaFormulario.js"></script>
+    <script src="../Scripts/Modaldes.js"></script>
     <!--Tambien Scripts JavaScript pero que son recursos para que funcione-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -25,23 +27,22 @@
             <p>CONTRATO NÚMERO 2024-3652</p>
             <p>CONSORCIO SEÑALIZAR BOGOTÁ 2025</p>
             <p>Calle 17 No. 33-76- Bogotá D.C.</p>
-            <button id="generatePDF">Generar PDF</button>
-          
         </div>
         <div class="section">
             <table class="contractor-table">
                 <tr>
                     <td rowspan="2" class="contractor-title">
                         <p>CONTRATISTA</p>
-                        <p>CONSORCIO SEÑALIZAR BOGOTÁ 2025 ZONA 6</p>
-                        <p>CONTRATO NUMERO 2024-3667</p>
-                    </td>
+                        <p>EMPRESA: SOCINTER SAS</p>
+                        <p>CONTRATO UMV 511-2025</p>
                     <td rowspan="2" class="contractor-logo">
-                        <img src="../Assets/Logo_Progen-removebg-preview.png" alt="Logo Progen">
+                        <img src="../Assets/LogoSocinter.jpeg" alt="Logo Progen">
                     </td>
                     <td class="contractor-content">
-                        <p>CONSORCIO INTEROBRAS</p>
-                        <p>POSOO-ALDEIC</p>
+                    <p>OBJETO: IMPLEMENTACIÓN DE SEÑALIZACIÓN HORIZONTAL EN LOS
+                            SEGMENTOS VIALES INTERVENIDOS EN DESARROLLO DE LAS ACTIVIDADES REALIZADAS
+                            POR LA UNIDAD ADMINISTRATIVA ESPECIAL DE REHABILITACIÓN Y MANTENIMIENTO VIAL</p>
+                    </td>
                     </td>
                     <td rowspan="2" class="right-logo">
                         <img src="../Assets/LogoSMovilidad-removebg-preview.png" alt="Logo Movilidad">
@@ -88,42 +89,48 @@
                                 <td>Agua</td>
                                 <td><input type="checkbox"></td>
                                 <td><input type="checkbox"></td>
-                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2"
+                                        style="width: 100%; resize: vertical;"></textarea></td>
 
                             </tr>
                             <tr>
                                 <td>Alcantarillado</td>
                                 <td><input type="checkbox"></td>
                                 <td><input type="checkbox"></td>
-                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2"
+                                        style="width: 100%; resize: vertical;"></textarea></td>
 
                             </tr>
                             <tr>
                                 <td>Teléfonos</td>
                                 <td><input type="checkbox"></td>
                                 <td><input type="checkbox"></td>
-                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2"
+                                        style="width: 100%; resize: vertical;"></textarea></td>
 
                             </tr>
                             <tr>
                                 <td>Gas</td>
                                 <td><input type="checkbox"></td>
                                 <td><input type="checkbox"></td>
-                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2"
+                                        style="width: 100%; resize: vertical;"></textarea></td>
 
                             </tr>
                             <tr>
                                 <td>TICS</td>
                                 <td><input type="checkbox"></td>
                                 <td><input type="checkbox"></td>
-                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2"
+                                        style="width: 100%; resize: vertical;"></textarea></td>
 
                             </tr>
                             <tr>
                                 <td>Licencia de construcción</td>
                                 <td><input type="checkbox"></td>
                                 <td><input type="checkbox"></td>
-                                <td><textarea placeholder="Sin observaciones" rows="2" style="width: 100%; resize: vertical;"></textarea></td>
+                                <td><textarea placeholder="Sin observaciones" rows="2"
+                                        style="width: 100%; resize: vertical;"></textarea></td>
 
                             </tr>
                         </table>
@@ -226,7 +233,8 @@
 
         <div class="section">
             <h3>DESCRIPCIÓN</h3>
-            <textarea rows="5" style="width: 100%;" placeholder="Ingrese la descripción aquí..."></textarea>
+            <textarea id="descripcionTextarea" rows="5" style="width: 100%;"
+                placeholder="Ingrese la descripción aquí..."></textarea>
         </div>
         <!-- Zona de las firmas-->
         <div class="section">
@@ -270,6 +278,7 @@
                     <p>Residente Técnico - Contratista</p>
                 </div>
             </div>
+            <button id="generatePDF">Generar PDF</button>
         </div>
     </div>
 
@@ -290,9 +299,32 @@
             <button onclick="saveSignature()">Guardar</button>
             <button onclick="closeSignatureModal()">Cerrar</button>
         </div>
+
     </div>
 
     </div>
+    </div>
+
+    <!--Modal para las preguntas de la descripcion-->
+    <div id="modalDescripcion" class="modal" style="display:none;">
+        <div class="modal-content" style="max-height: 90vh; overflow-y: auto;">
+            <h3>Generar Descripción</h3>
+
+            <label>Número de pisos:
+                <input type="number" id="numPisos" min="1" max="10">
+            </label>
+
+            <button onclick="generarCamposPisos()">Siguiente</button>
+
+            <!-- Aquí el scroll si hay muchos campos -->
+            <div id="camposPisos"
+                style="max-height: 50vh; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
+            </div>
+
+            <button onclick="generarTextoDescripcion()">Generar Descripción</button>
+            <button onclick="cerrarModal()">Cerrar</button>
+        </div>
+
 </body>
 
 </html>

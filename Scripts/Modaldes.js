@@ -500,9 +500,6 @@ function generarTextoDescripcion() {
   document.getElementById("modalDescripcion").style.display = "none";
 }
 
-
-
-
 // Mostrar el modal al hacer clic en el textarea de descripción
 document.addEventListener("DOMContentLoaded", () => {
     const textarea = document.querySelector("textarea[placeholder='Ingrese la descripción aquí...']");

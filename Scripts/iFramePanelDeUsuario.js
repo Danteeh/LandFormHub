@@ -3,6 +3,11 @@ function loadForm() {
     contentArea.innerHTML = '<iframe src="../pages/Formulario.html"></iframe>';
   }
 
+function loadFormSocin(){
+    const contentArea = document.getElementById('contentArea');
+    contentArea.innerHTML = '<iframe src="../pages/FormularioSocinter.html"></iframe>';
+}
+
 function showPerformance() {
     const contentArea = document.getElementById('contentArea');
     contentArea.innerHTML = '<p>Aquí se mostrará el rendimiento del usuario.</p>';

@@ -194,3 +194,15 @@ p {
     object-fit: contain;         /* Evita que se deforme */
     max-height: 100px;           /* Limita la altura máxima */
 }
+
+.right-logo {
+    text-align: center;           /* Centra horizontalmente */
+    vertical-align: middle;       /* Centra verticalmente */
+}
+
+.right-logo img {
+    display: block;               /* Evita espacio extra del inline */
+    margin: 0 auto;               /* Centra horizontalmente si es necesario */
+    max-width: 100%;              /* Evita desbordes */
+    height: auto;
+}

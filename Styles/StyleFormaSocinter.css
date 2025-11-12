@@ -5,8 +5,15 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     width: 100%;
-    min-width: 1400px; /* Mantiene el formato horizontal fijo */
+    min-width: 1400px;
     overflow-x: auto;
+}
+
+p {
+    text-align: center;
+    margin: 5px 0;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 /* === CONTENEDOR PRINCIPAL === */
@@ -45,7 +52,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 15px;
-    table-layout: fixed; /* Evita que el contenido rompa la tabla */
+    table-layout: fixed;
 }
 
 th, td {
@@ -56,12 +63,14 @@ th, td {
     overflow: hidden;
 }
 
-/* === INPUTS Y SELECTS DENTRO DE TABLAS === */
+/* === INPUTS, SELECTS Y TEXTAREAS === */
 table input[type="text"],
 table input[type="email"],
 table input[type="date"],
 table select,
-table textarea {
+table textarea,
+select,
+input[type="text"] {
     width: 100%;
     box-sizing: border-box;
     padding: 6px;
@@ -69,18 +78,18 @@ table textarea {
     border: 1px solid #bbb;
     border-radius: 4px;
     outline: none;
+    margin-top: 4px;
 }
 
-table input[type="text"]:focus,
-table input[type="email"]:focus,
-table input[type="date"]:focus,
+table input:focus,
 table select:focus,
-table textarea:focus {
+table textarea:focus,
+select:focus,
+input[type="text"]:focus {
     border-color: #007bff;
     background-color: #f0f8ff;
 }
 
-/* === TEXTAREAS === */
 table textarea {
     resize: vertical;
     min-height: 40px;
@@ -114,28 +123,74 @@ table textarea {
 }
 
 /* === BLOQUES DE FIRMAS === */
-.signatures-container {
+/* === BLOQUE DE FIRMAS === */
+.signatures-wrapper {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: nowrap;
+    justify-content: center;
     width: 100%;
-    overflow-x: auto;
-}
-
-.signature-block {
+    margin-bottom: 30px;
+  }
+  
+  .signature-owner {
     text-align: center;
-    flex: 1;
-    min-width: 180px;
-}
-
-.signature-owner {
+    width: 300px;
+  }
+  
+  #signature-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 100px;
+    border: 2px dashed #aaa;
+    border-radius: 8px;
+    background-color: #fafafa;
+    margin: 10px auto;
+    cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s;
+  }
+  
+  #signature-box:hover {
+    border-color: #555;
+    background-color: #f3f3f3;
+  }
+  
+  #signature-box img {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  #signature-placeholder {
+    color: #777;
+    font-size: 14px;
+  }
+  
+  /* === FIRMAS DE ELABORÓ === */
+  .signatures-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 100%;
+    gap: 40px;
+    margin-top: 20px;
+  }
+  
+  .signature-block {
     text-align: center;
-    margin-top: 15px;
-}
+    width: 250px;
+  }
+  
+  .signature-block img {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+  
 
-/* === MODALES === */
+/* === MODALES Y FORMULARIOS === */
 .modal-content, 
 .bloque-formulario {
     background-color: #fff;
@@ -159,14 +214,50 @@ label {
     margin-bottom: 1rem;
 }
 
-select, 
-input[type="text"] {
+/* === LOGO DE SOCINTER === */
+.contractor-logo img {
+    width: 90%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+    max-height: 100px;
+}
+
+/* === BLOQUES DE IMÁGENES === */
+.image-space {
+    display: inline-block;
+    width: 45%;
+    margin: 10px 2%;
+    text-align: center;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.preview-space {
     width: 100%;
-    padding: 8px;
-    font-size: 0.95rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-top: 4px;
+    height: 180px;
+    border: 2px dashed #bbb;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 14px;
+    background-color: #fafafa;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+.preview-space:hover {
+    border-color: #555;
+    background-color: #f3f3f3;
+}
+
+.preview-space img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 6px;
+    object-fit: contain;
 }
 
 /* === RESPONSIVIDAD === */
@@ -174,35 +265,4 @@ input[type="text"] {
     body {
         min-width: 1400px;
     }
-}
-
-
-/* === Ajuste de todos los párrafos === */
-p {
-    text-align: center;          /* Centra el texto */
-    margin: 5px 0;               /* Espaciado uniforme arriba y abajo */
-    font-size: 14px;             /* Tamaño legible */
-    line-height: 1.4;            /* Espaciado de línea cómodo */
-}
-
-/* === Ajuste específico del logo de SOCINTER === */
-.contractor-logo img {
-    width: 90%;                  /* Tamaño proporcional dentro de la celda */
-    height: auto;                /* Mantiene proporciones */
-    display: block;
-    margin: 0 auto;              /* Centra el logo */
-    object-fit: contain;         /* Evita que se deforme */
-    max-height: 100px;           /* Limita la altura máxima */
-}
-
-.right-logo {
-    text-align: center;           /* Centra horizontalmente */
-    vertical-align: middle;       /* Centra verticalmente */
-}
-
-.right-logo img {
-    display: block;               /* Evita espacio extra del inline */
-    margin: 0 auto;               /* Centra horizontalmente si es necesario */
-    max-width: 100%;              /* Evita desbordes */
-    height: auto;
 }

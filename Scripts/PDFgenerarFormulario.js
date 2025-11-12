@@ -1,66 +1,112 @@
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('generatePDF').addEventListener('click', function () {
-        const generateButton = document.getElementById('generatePDF');
-        const element = document.querySelector('.container'); // Contenedor del formulario
-        const idInput = document.getElementById('id_diseno'); // Campo de ID de diseño
+// PDFgenerarFormulario.js
+document.addEventListener('DOMContentLoaded', () => {
+    const generateBtn = document.getElementById('generatePDF');
+    generateBtn.addEventListener('click', generatePDF);
+  });
+  
+  function updateOwnerNameFromInput() {
+    const input = document.getElementById('Nombre');
+    const ownerNameEl = document.getElementById('owner-name');
+    if (ownerNameEl && input) {
+      ownerNameEl.textContent = input.value.trim() || 'Nombre de la persona';
+    }
+  }
+  
+  function triggerUpload(inputId) {
+    document.getElementById(inputId).click();
+  }
+  
+  function previewImage(event, id) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      const preview = document.getElementById(`${id}-preview`);
+      preview.innerHTML = `<img src="${reader.result}" alt="Imagen" style="max-width:100%; max-height:100%; object-fit:contain; border-radius:6px;">`;
+    };
+    if (event.target.files && event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+  
+  async function generatePDF() {
+    const generateButton = document.getElementById('generatePDF');
+    const element = document.querySelector('.container');
+    if (!element) return alert('No se encontró el contenido a exportar.');
+  
+    updateOwnerNameFromInput();
 
-        if (!element) {
-            console.error("No se encontró el elemento con la clase '.container'");
-            return;
-        }
+    const signatureModal = document.getElementById('signature-modal');
+    const prevModalDisplay = signatureModal ? signatureModal.style.display : null;
+    if (signatureModal) signatureModal.style.display = 'none';
+  
 
-        // Obtener el valor del input "ID diseño"
-        let formID = idInput ? idInput.value.trim() : "";
-        if (!formID) {
-            formID = "formulario"; // Nombre por defecto si está vacío
-        }
+    if (generateButton) generateButton.style.visibility = 'hidden';
 
-        // Ocultar botón antes de generar el PDF
-        if (generateButton) generateButton.style.display = 'none';
-
-        // Convertir los <textarea> en texto antes de la captura
-        document.querySelectorAll("textarea").forEach(textarea => {
-            let text = textarea.value;
-            let span = document.createElement("span");
-            span.textContent = text;
-            span.style.whiteSpace = "pre-wrap"; // Mantiene saltos de línea y espacios
-            span.style.display = "block"; // Para mantener la estructura del diseño
-            textarea.parentNode.replaceChild(span, textarea); // Reemplaza el textarea
-        });
-
-        html2canvas(element, { scale: 2, useCORS: true }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            const { jsPDF } = window.jspdf;
-
-            // Obtener tamaño del contenido en mm
-            const imgWidth = (canvas.width * 25.4) / 96;  
-            const imgHeight = (canvas.height * 25.4) / 96;
-
-            // Crear PDF con dimensiones ajustadas al contenido
-            const doc = new jsPDF({
-                orientation: imgWidth > imgHeight ? 'l' : 'p',
-                unit: 'mm',
-                format: [imgWidth, imgHeight]
-            });
-
-            doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-            doc.save(`${formID}.pdf`); // Usa el valor del input como nombre del PDF
-
-            // Restaurar la visibilidad del botón
-            if (generateButton) generateButton.style.display = 'block';
-
-            // Restaurar los textarea después de generar el PDF
-            document.querySelectorAll("span").forEach(span => {
-                let textarea = document.createElement("textarea");
-                textarea.value = span.textContent;
-                textarea.style.width = "100%"; // Mantiene el tamaño original
-                textarea.style.resize = "vertical"; // Permite redimensionar
-                span.parentNode.replaceChild(textarea, span);
-            });
-
-        }).catch(error => {
-            console.error("Error al generar el PDF con html2canvas:", error);
-            if (generateButton) generateButton.style.display = 'block';
-        });
+    const textareas = Array.from(document.querySelectorAll('textarea'));
+    const tempSpans = [];
+    textareas.forEach(tx => {
+      const span = document.createElement('div');
+      span.textContent = tx.value;
+      span.style.whiteSpace = 'pre-wrap';
+      span.style.minHeight = tx.offsetHeight + 'px';
+      span.dataset.temp = 'true';
+      tx.parentNode.replaceChild(span, tx);
+      tempSpans.push({ span, original: tx });
     });
-});
+  
+    try {
+
+      const canvas = await html2canvas(element, {
+        scale: 1,          
+        useCORS: true,
+        allowTaint: true,
+        logging: false
+      });
+  
+
+      const imgData = canvas.toDataURL('image/jpeg', 0.7);
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({
+        orientation: canvas.width > canvas.height ? 'landscape' : 'portrait',
+        unit: 'mm',
+        format: 'a4',
+        compress: true 
+      });
+  
+      // Ajustar imagen al tamaño de página
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      let drawWidth = pageWidth;
+      let drawHeight = (canvas.height * pageWidth) / canvas.width;
+  
+      if (drawHeight > pageHeight) {
+        drawHeight = pageHeight;
+        drawWidth = (canvas.width * pageHeight) / canvas.height;
+      }
+  
+      const xOffset = (pageWidth - drawWidth) / 2;
+      const yOffset = (pageHeight - drawHeight) / 2;
+  
+      pdf.addImage(imgData, 'JPEG', xOffset, yOffset, drawWidth, drawHeight);
+  
+
+      const idInput = document.getElementById('id_diseno');
+      const filename = (idInput && idInput.value.trim()) ? idInput.value.trim() + '.pdf' : 'formulario.pdf';
+      pdf.save(filename);
+  
+    } catch (err) {
+      console.error('Error generando PDF:', err);
+      alert('Ocurrió un error al generar el PDF. Revisa la consola.');
+    } finally {
+      tempSpans.forEach(({ span, original }) => {
+        const textarea = document.createElement('textarea');
+        textarea.value = span.textContent;
+        textarea.style.width = '100%';
+        textarea.style.resize = 'vertical';
+        span.parentNode.replaceChild(textarea, span);
+      });
+      if (generateButton) generateButton.style.visibility = 'visible';
+      if (signatureModal && prevModalDisplay) signatureModal.style.display = prevModalDisplay;
+    }
+  }
+  

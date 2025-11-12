@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reprocesar PDF antiguo</title>
+
+  <!-- PDF.js versión que expone pdfjsLib global -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+  </script>
+
+  <!-- Librerías para generar PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<h2>Reprocesar PDF antiguo al nuevo formato</h2>
+<input type="file" id="pdfInput" accept="application/pdf">
+<button id="processPDF">Procesar y Generar PDF</button>
+
+<!-- Nuevo template completo (oculto) -->
+<div id="template" style="display:none; padding:10px; border:1px solid #000; max-width:800px;">
+  <div class="header">
+    <h1>FORMATO ACTA DE VECINDAD</h1>
+    <p>CONTRATO NÚMERO 2024-1234</p>
+    <p>CONSORCIO SOCINTER BOGOTÁ 2025</p>
+    <p>Calle 17 No. 33-76 - Bogotá D.C.</p>
+  </div>
+
+  <!-- Fecha / Localidad / Barrio / ID -->
+  <div class="section">
+    <table border="1" cellspacing="0" cellpadding="5">
+      <tr>
+        <th>FECHA</th><th>LOCALIDAD</th><th>BARRIO</th><th>ID DISEÑO</th>
+      </tr>
+      <tr>
+        <td><input type="text" id="fecha" value="2025-11-11"></td>
+        <td><input type="text" id="localidad" value="Bogotá"></td>
+        <td><input type="text" id="barrio" value="Zona 6"></td>
+        <td><input type="text" id="id_diseno"></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- DATOS DEL PREDIO -->
+  <div class="section">
+    <h3>2. DATOS DEL PREDIO</h3>
+    <table border="1" cellspacing="0" cellpadding="5">
+      <tr>
+        <td>Nombre Propietario:<input type="text" id="Nombre"></td>
+        <td>Teléfono:<input type="text" id="Telefono"></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- USO ACTUAL (simplificado) -->
+  <div class="section">
+    <h3>USO ACTUAL</h3>
+    <table border="1" cellspacing="0" cellpadding="5">
+      <tr><th>Tipo</th><th>Check</th></tr>
+      <tr><td>Residencial</td><td><input type="checkbox"></td></tr>
+      <tr><td>Comercial</td><td><input type="checkbox"></td></tr>
+      <tr><td>Institucional</td><td><input type="checkbox"></td></tr>
+      <tr><td>Industrial</td><td><input type="checkbox"></td></tr>
+    </table>
+  </div>
+
+  <!-- REGISTRO FOTOGRÁFICO (solo espacio para ejemplo) -->
+  <div class="section">
+    <h3>REGISTRO FOTOGRÁFICO</h3>
+    <div style="border:1px solid #000; width:200px; height:150px;">Imagen 1</div>
+    <div style="border:1px solid #000; width:200px; height:150px;">Imagen 2</div>
+  </div>
+</div>
+
+<script>
+document.getElementById('processPDF').addEventListener('click', async () => {
+  const fileInput = document.getElementById('pdfInput');
+  if (!fileInput.files || fileInput.files.length === 0) return alert("Selecciona un PDF");
+
+  const file = fileInput.files[0];
+  const arrayBuffer = await file.arrayBuffer();
+
+  // Extraer texto con pdf.js
+  const typedArray = new Uint8Array(arrayBuffer);
+  const pdf = await pdfjsLib.getDocument({ data: typedArray }).promise;
+
+  let extractedText = "";
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const textContent = await page.getTextContent();
+    const pageText = textContent.items.map(item => item.str).join(" ");
+    extractedText += pageText + "\n";
+  }
+
+  console.log("Texto extraído:", extractedText);
+
+  // Mapear campos
+  const nombreMatch = extractedText.match(/Nombre Propietario[:\s]+([^\n]+)/i);
+  const telefonoMatch = extractedText.match(/Tel[eé]fono[:\s]+([^\n]+)/i);
+  const idDisenoMatch = extractedText.match(/ID DISE[ÑN]O[:\s]+([^\n]+)/i);
+
+  const Nombre = nombreMatch ? nombreMatch[1].trim() : "N/A";
+  const Telefono = telefonoMatch ? telefonoMatch[1].trim() : "N/A";
+  const id_diseno = idDisenoMatch ? idDisenoMatch[1].trim() : "N/A";
+
+  // Rellenar template
+  document.getElementById('Nombre').value = Nombre;
+  document.getElementById('Telefono').value = Telefono;
+  document.getElementById('id_diseno').value = id_diseno;
+
+  // Mostrar template
+  const templateDiv = document.getElementById('template');
+  templateDiv.style.display = 'block';
+
+  // Generar PDF desde HTML
+  const canvas = await html2canvas(templateDiv, { scale: 2 });
+  const imgData = canvas.toDataURL('image/jpeg', 0.7);
+  const { jsPDF } = window.jspdf;
+
+  const pdfDoc = new jsPDF({
+    unit: 'px',
+    format: [canvas.width, canvas.height]
+  });
+
+  pdfDoc.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+  pdfDoc.save(`Formulario_${id_diseno}.pdf`);
+
+  templateDiv.style.display = 'none';
+  alert("PDF generado con el nuevo formato");
+});
+</script>
+
+</body>
+</html>
